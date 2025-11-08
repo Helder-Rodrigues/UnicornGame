@@ -18,11 +18,13 @@ public class PlayerController : MonoBehaviour
     [Header("Bounce Settings")]
     [SerializeField] private float bounceForce = 200;
     [SerializeField] private float maxBounceDelay = 0.5f; // max seconds between dash & collision to count as bounce
+    [SerializeField] private float upwardFactor = 0.7f; // how much "up" to add to the wall jump
 
     //Status & Health
     private bool isAlive = true;
     public bool isGrounded = false;
     private bool isDashing = false;
+    private bool wallJumping = false;
     private bool doubleJumpDone = false;
     private Rigidbody rb;
 
@@ -47,7 +49,7 @@ public class PlayerController : MonoBehaviour
         if (!isAlive) return;
 
         // Constant forward movement — only when not dashing or bouncing
-        if (!isDashing)
+        if (!isDashing && !wallJumping)
         {
             if (isGrounded)
                 // Apply horizontal movement only while grounded
@@ -57,7 +59,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Extra gravity for better jump feel
-        if (!isGrounded && !isDashing)
+        if (!isGrounded && !isDashing && !wallJumping)
             rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
     }
 
@@ -85,7 +87,7 @@ public class PlayerController : MonoBehaviour
     // ---------- ACTIONS ----------
     private void Jump()
     {
-        if (isDashing || doubleJumpDone)
+        if (/*isDashing || wallJumping || */doubleJumpDone)
             return;
 
         if (!isGrounded)
@@ -123,7 +125,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-
     private void Shield()
     {
         if (isGrounded || activeShield != null) return; // Only one at a time
@@ -132,15 +133,33 @@ public class PlayerController : MonoBehaviour
         activeShield.transform.SetParent(transform);
     }
 
+    
     // ---------- COLLISIONS ----------
     private void OnCollisionEnter(Collision collision)
     {
-        if (!isDashing) return;
-
         float timeSinceDash = Time.time - lastDashTime;
         ContactPoint contact = collision.contacts[0];
         Vector3 normal = contact.normal;
         Vector3 contactPoint = contact.point;
+
+        // No shield -> stop dash
+        if (activeShield == null)
+        {
+            isDashing = false;
+            wallJumping = false;
+            Debug.DrawRay(contactPoint, normal * 1f, Color.red, 2f);
+            return;
+        }
+
+        if (!isDashing)
+        {
+            Destroy(activeShield);
+            activeShield = null;
+
+            StopAllCoroutines();
+            StartCoroutine(WallJump(normal, contactPoint));
+            return;
+        }
 
         // Too old -> stop dash (do not consume shield)
         if (timeSinceDash > maxBounceDelay)
@@ -151,17 +170,8 @@ public class PlayerController : MonoBehaviour
             return;
         }
 
-        // No shield -> stop dash
-        if (activeShield == null)
-        {
-            isDashing = false;
-            Debug.Log("No shield: stopping dash");
-            Debug.DrawRay(contactPoint, normal * 1f, Color.red, 2f);
-            return;
-        }
-
         // Valid bounce: show debug rays for inspection
-        Debug.Log("Valid bounce (consuming shield)");
+        //Debug.Log("Valid bounce (consuming shield)");
         Debug.DrawRay(contactPoint, normal * 1f, Color.red, 3f);       // surface normal
         Debug.DrawRay(contactPoint, lastDashDir * 2f, Color.blue, 3f); // incoming
                                                                        // consume shield
@@ -170,6 +180,48 @@ public class PlayerController : MonoBehaviour
 
         StopAllCoroutines();
         StartCoroutine(Bounce(normal, contactPoint));
+    }
+
+    private IEnumerator WallJump(Vector3 normal, Vector3 contactPoint)
+    {
+        Vector3 wallDir = Vector3.zero;
+
+        // Wall on right
+        if (Vector3.Dot(normal, transform.right) > 0.5f)
+        {
+            wallDir = transform.right; // jump left
+        }
+        // Wall on left
+        else if (Vector3.Dot(normal, transform.right) < -0.5f)
+        {
+            wallDir = -transform.right; // jump right
+        }
+
+        if (wallDir != Vector3.zero)
+        {
+            wallJumping = true;
+
+            Vector3 dir = (wallDir + Vector3.up * upwardFactor).normalized;
+            
+            Debug.DrawRay(contactPoint, wallDir * 2f, Color.red, float.MaxValue);       // surface normal
+            Debug.DrawRay(contactPoint, dir * 2f, Color.blue, float.MaxValue);       // surface normal
+
+            // apply bounce impulse
+            rb.velocity = Vector3.zero;
+            rb.drag = 0f;
+            rb.AddForce(dir * bounceForce, ForceMode.VelocityChange);
+
+            // short buffer so immediate re-collisions don't override everything
+            float buffer = 0.12f;
+            float start = Time.time;
+            while (Time.time - start < buffer)
+                yield return null;
+
+            // wait until grounded to return to normal movement (keeps airborne chaining possible)
+            yield return new WaitUntil(() => isGrounded);
+
+            wallJumping = false;
+        }
     }
 
     private IEnumerator Bounce(Vector3 surfaceNormal, Vector3 contactPoint)
@@ -182,6 +234,7 @@ public class PlayerController : MonoBehaviour
 
         // reflect using the surface normal
         Vector3 reflectDir = Vector3.Reflect(inDir, surfaceNormal).normalized;
+        Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.black, 3f);
 
         // SANITY: ensure reflectDir points away from the surface
         // If dot < 0 => reflectDir is pointing into the surface (bad), flip it.
@@ -189,6 +242,7 @@ public class PlayerController : MonoBehaviour
         {
             reflectDir = -reflectDir;
         }
+        Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.magenta, 3f);
 
         // small outward bias so floor bounces go more upward and wall bounces go more outward
         float vertical = Mathf.Abs(surfaceNormal.y);
@@ -204,7 +258,7 @@ public class PlayerController : MonoBehaviour
 
         // debug rays (contact point)
         Debug.DrawRay(contactPoint, surfaceNormal * 1.5f, Color.red, 3f);
-        Debug.DrawRay(contactPoint, inDir * 2.5f, Color.blue, 3f);
+        Debug.DrawRay(contactPoint, inDir * -2.5f, Color.blue, 3f);
         Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.green, 3f);
 
         // apply bounce impulse
@@ -226,6 +280,7 @@ public class PlayerController : MonoBehaviour
 
         isDashing = false;
     }
+
 
     // ---------- DAMAGE ----------
     public void TakeDamage()

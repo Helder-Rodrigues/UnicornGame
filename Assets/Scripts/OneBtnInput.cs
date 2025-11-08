@@ -72,6 +72,7 @@ public class OneBtnInput : MonoBehaviour
         // Detect hold
         if (buttonPressed && !isHolding && Time.time - buttonDownTime >= holdTime)
         {
+            tapCount = 0;
             isHolding = true;
             OnHold?.Invoke();
         }
