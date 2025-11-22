@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Cinemachine;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -7,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [Header("References")]
     [SerializeField] private OneBtnInput input;
     [SerializeField] private GameObject shieldPrefab;
+    [SerializeField] private CamController camController;
 
     [Header("Movement Settings")]
     [SerializeField] private float moveSpeed = 5f;
@@ -22,7 +24,7 @@ public class PlayerController : MonoBehaviour
 
     //Status & Health
     private bool isAlive = true;
-    public bool isGrounded = false;
+    [HideInInspector] public bool isGrounded = false;
     private bool isDashing = false;
     private bool wallJumping = false;
     private bool doubleJumpDone = false;
@@ -48,7 +50,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isAlive) return;
 
-        // Constant forward movement — only when not dashing or bouncing
+        // Constant forward movement - only when not dashing or bouncing
         if (!isDashing && !wallJumping)
         {
             if (isGrounded)
@@ -65,14 +67,14 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Ground check
+        // Ground check !!!ToDo: Make better RayCast
         isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
 
         if (isGrounded)
             doubleJumpDone = false;
 
         //draw movement
-        Debug.DrawRay(transform.position, Vector3.right * Mathf.Sign(moveSpeed), Color.red, 0.6f);
+        Debug.DrawRay(transform.position, Vector3.right * Mathf.Sign(moveSpeed), Color.red, float.MaxValue);
 
         /*// Wall unstick — if moving toward wall and barely moving horizontally
         if (!isGrounded && !isDashing)
@@ -87,7 +89,7 @@ public class PlayerController : MonoBehaviour
     // ---------- ACTIONS ----------
     private void Jump()
     {
-        if (/*isDashing || wallJumping || */doubleJumpDone)
+        if (doubleJumpDone)
             return;
 
         if (!isGrounded)
@@ -113,7 +115,8 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         lastDashTime = Time.time;
 
-        Vector3 dashDir = (Vector3.right + dashFactor * Vector3.down).normalized;
+        Vector3 sideDashDir = moveSpeed < 0? Vector3.left : Vector3.right;
+        Vector3 dashDir = (sideDashDir + dashFactor * Vector3.down).normalized;
         lastDashDir = dashDir;
 
         rb.velocity = Vector3.zero;
@@ -154,7 +157,7 @@ public class PlayerController : MonoBehaviour
         if (!isDashing)
         {
             Destroy(activeShield);
-            activeShield = null;
+            //activeShield = null;
 
             StopAllCoroutines();
             StartCoroutine(WallJump(normal, contactPoint));
@@ -200,6 +203,9 @@ public class PlayerController : MonoBehaviour
         if (wallDir != Vector3.zero)
         {
             wallJumping = true;
+
+            camController.FlipCameraOffset();
+            moveSpeed *= -1;
 
             Vector3 dir = (wallDir + Vector3.up * upwardFactor).normalized;
             
@@ -252,6 +258,9 @@ public class PlayerController : MonoBehaviour
         }
         else // mostly wall-like surface
         {
+            camController.FlipCameraOffset();
+            moveSpeed *= -1;
+
             // push horizontally away from wall (sign depends on normal.x)
             reflectDir = (reflectDir + Vector3.right * -Mathf.Sign(surfaceNormal.x) * 0.25f).normalized;
         }
