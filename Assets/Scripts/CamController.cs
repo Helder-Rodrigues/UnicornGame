@@ -1,4 +1,4 @@
-using Cinemachine;
+﻿using Cinemachine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +16,9 @@ public class CamController : MonoBehaviour
     {
         vCam = GetComponent<CinemachineVirtualCamera>();
         camTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+
+        currentZoom = normalFOV;
+        vCam.m_Lens.FieldOfView = currentZoom;
     }
 
     public void FlipCameraOffset()
@@ -46,6 +49,67 @@ public class CamController : MonoBehaviour
         Vector3 final = camTransposer.m_TrackedObjectOffset;
         final.x = targetX;
         camTransposer.m_TrackedObjectOffset = final;
+    }
+
+    // Camera Air Zoom
+    [Header("References")]
+    [SerializeField] private Rigidbody playerRb;
+
+    [Header("Zoom Settings")]
+    [SerializeField] private float normalFOV = 40f;
+    [SerializeField] private float maxZoomOutFOV = 60f;
+    [SerializeField] private float zoomOutSpeed = 1f;  // how fast zooms out
+    [SerializeField] private float zoomInSpeed = 3f;   // how fast zoom goes back to normal
+
+    [Header("Air Settings")]
+    [SerializeField] private float airTimeToMaxZoom = 1.0f; // seconds airborne to reach max zoom
+
+    private float airTime = 0f;
+    private float currentZoom;
+
+    private bool isGrounded = true;
+
+    private void Update()
+    {
+        UpdateAirTime();
+        UpdateZoom();
+    }
+
+    private void UpdateAirTime()
+    {
+        // Aqui você coloca sua lógica real de grounded.
+        // Exemplo rápido:
+        isGrounded = Physics.Raycast(playerRb.transform.position, Vector3.down, 1.1f);
+
+        if (!isGrounded)
+        {
+            airTime += Time.deltaTime;
+        }
+        else
+        {
+            airTime -= Time.deltaTime * 3f; // volta mais rápido
+        }
+
+        airTime = Mathf.Clamp(airTime, 0f, airTimeToMaxZoom);
+    }
+
+    private void UpdateZoom()
+    {
+        float t = airTime / airTimeToMaxZoom;  // 0 → no chão, 1 → máximo no ar
+        float targetZoom = Mathf.Lerp(normalFOV, maxZoomOutFOV, t);
+
+        if (isGrounded)
+        {
+            // zoom-in rápido
+            currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * zoomInSpeed);
+        }
+        else
+        {
+            // zoom-out lento
+            currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * zoomOutSpeed);
+        }
+
+        vCam.m_Lens.FieldOfView = currentZoom;
     }
 }
 

@@ -1,6 +1,8 @@
 ﻿using Cinemachine;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
+using static DebugBoxCast;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
@@ -22,23 +24,28 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxBounceDelay = 0.5f; // max seconds between dash & collision to count as bounce
     [SerializeField] private float upwardFactor = 0.7f; // how much "up" to add to the wall jump
 
-    //Status & Health
+    //Status
     private bool isAlive = true;
     [HideInInspector] public bool isGrounded = false;
     private bool isDashing = false;
     private bool wallJumping = false;
     private bool doubleJumpDone = false;
+    
+    //Another References
     private Rigidbody rb;
-
     private GameObject activeShield;
-    private float lastDashTime;
+    private BoxCollider boxCol;
 
+    //Info
+    private float lastDashTime;
     private Vector3 lastDashDir;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation; // Prevent tipping over
+
+        boxCol = GetComponent<BoxCollider>();
 
         // Subscribe to input
         input.OnSingleClick += Jump;
@@ -56,8 +63,6 @@ public class PlayerController : MonoBehaviour
             if (isGrounded)
                 // Apply horizontal movement only while grounded
                 rb.velocity = new Vector3(moveSpeed, rb.velocity.y, 0);
-            //else if (!Physics.Raycast(transform.position, Vector3.right * Mathf.Sign(moveSpeed), 0.6f))
-            //    rb.AddForce(Vector3.right, ForceMode.Impulse);
         }
 
         // Extra gravity for better jump feel
@@ -67,22 +72,26 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Ground check !!!ToDo: Make better RayCast
-        isGrounded = Physics.Raycast(transform.position, Vector3.down, 1.1f);
-
+        // Ground check
+        VerifyGround();
+        
         if (isGrounded)
             doubleJumpDone = false;
 
         //draw movement
         Debug.DrawRay(transform.position, Vector3.right * Mathf.Sign(moveSpeed), Color.red, float.MaxValue);
+    }
 
-        /*// Wall unstick — if moving toward wall and barely moving horizontally
-        if (!isGrounded && !isDashing)
-        {
-            // Slight downward nudge if touching wall
-            if (Physics.Raycast(transform.position, Vector3.right * Mathf.Sign(moveSpeed), 0.6f))
-                rb.AddForce(Vector3.down, ForceMode.VelocityChange);
-        }*/
+    private void VerifyGround()
+    {
+        Vector3 extents = boxCol.size * 0.75f;
+        extents = new(extents.x, extents.y / 2.85f, extents.z);
+        Vector3 center = transform.position;
+        center.y += boxCol.size.y/4;
+        float distance = 1f;
+
+        isGrounded = Physics.BoxCast(center, extents, Vector3.down, out _, transform.rotation, distance);
+        //DebugBoxCast.DrawBoxCastOnHit(center, extents, transform.rotation, Vector3.down, distance, Color.red);
     }
 
 
@@ -115,7 +124,7 @@ public class PlayerController : MonoBehaviour
         isDashing = true;
         lastDashTime = Time.time;
 
-        Vector3 sideDashDir = moveSpeed < 0? Vector3.left : Vector3.right;
+        Vector3 sideDashDir = moveSpeed < 0 ? Vector3.left : Vector3.right;
         Vector3 dashDir = (sideDashDir + dashFactor * Vector3.down).normalized;
         lastDashDir = dashDir;
 
@@ -136,7 +145,7 @@ public class PlayerController : MonoBehaviour
         activeShield.transform.SetParent(transform);
     }
 
-    
+
     // ---------- COLLISIONS ----------
     private void OnCollisionEnter(Collision collision)
     {
@@ -145,12 +154,20 @@ public class PlayerController : MonoBehaviour
         Vector3 normal = contact.normal;
         Vector3 contactPoint = contact.point;
 
-        // No shield -> stop dash
+        // No shield -> turn player direction
         if (activeShield == null)
         {
             isDashing = false;
             wallJumping = false;
-            Debug.DrawRay(contactPoint, normal * 1f, Color.red, 2f);
+
+            float vertical = Mathf.Abs(normal.y);
+            if (vertical <= 0.5f) // mostly wall-like surface
+            {
+                camController.FlipCameraOffset();
+                moveSpeed *= -1;
+                
+                rb.velocity = new Vector3(moveSpeed, rb.velocity.y, 0);
+            }
             return;
         }
 
@@ -208,7 +225,7 @@ public class PlayerController : MonoBehaviour
             moveSpeed *= -1;
 
             Vector3 dir = (wallDir + Vector3.up * upwardFactor).normalized;
-            
+
             Debug.DrawRay(contactPoint, wallDir * 2f, Color.red, float.MaxValue);       // surface normal
             Debug.DrawRay(contactPoint, dir * 2f, Color.blue, float.MaxValue);       // surface normal
 
@@ -245,9 +262,8 @@ public class PlayerController : MonoBehaviour
         // SANITY: ensure reflectDir points away from the surface
         // If dot < 0 => reflectDir is pointing into the surface (bad), flip it.
         if (Vector3.Dot(reflectDir, surfaceNormal) < 0f)
-        {
             reflectDir = -reflectDir;
-        }
+
         Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.magenta, 3f);
 
         // small outward bias so floor bounces go more upward and wall bounces go more outward

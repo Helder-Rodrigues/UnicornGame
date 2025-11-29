@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 using System.Collections;
 
@@ -7,17 +7,15 @@ public class OneBtnInput : MonoBehaviour
     [SerializeField] private PlayerController playerCtrlr;
 
     [Header("Button Settings")]
-    public KeyCode actionKey = KeyCode.K;  // The single button used
+    public KeyCode actionKey = KeyCode.K;
 
     [Header("Timing Settings")]
-    private float doubleTapTime = 0.2f;   // Max delay between taps for a double tap
-    private float holdTime = 0.2f;        // Time needed to trigger a hold
+    public float waitTime = 0.18f;
+    private float lastTapTime = -1f;
+    private float buttonDownStart = 0f;
 
-    private float buttonDownTime = 0f;
-    private bool isHolding = false;
-    private bool buttonPressed = false;
-    private int tapCount = 0;
-    private Coroutine singleTapCoroutine;
+    private Coroutine singleTapRoutine;
+    private Coroutine holdRoutine;
 
     public event Action OnSingleClick;
     public event Action OnDoubleTap;
@@ -25,70 +23,74 @@ public class OneBtnInput : MonoBehaviour
 
     void Update()
     {
-        // Button pressed
         if (Input.GetKeyDown(actionKey))
         {
-            buttonPressed = true;
-            buttonDownTime = Time.time;
-            tapCount++;
+            float time = Time.time;
+            buttonDownStart = time;
 
-            // Check for double tap
-            if (tapCount == 2)
-            {
-                // Cancel waiting for single tap
-                if (singleTapCoroutine != null)
-                    StopCoroutine(singleTapCoroutine);
+            if (holdRoutine != null)
+                StopCoroutine(holdRoutine);
 
-                OnDoubleTap?.Invoke();
-                tapCount = 0;
-            }
-        }
-
-        // Button released
-        if (Input.GetKeyUp(actionKey))
-        {
-            buttonPressed = false;
-
+            // If grounded - single click (no waiting)
             if (playerCtrlr.isGrounded)
             {
+                // No tapCount, no double-tap window, no delay
                 OnSingleClick?.Invoke();
-                tapCount = 0;
+
+                // Reset since we're not doing tap logic
+                if (singleTapRoutine != null)
+                    StopCoroutine(singleTapRoutine);
+                lastTapTime = -1f;
+                return;
             }
-            else if (!isHolding)
+
+            // AIR INPUTS BELOW (DoubleTap / SingleTap / Hold)
+
+            // DOUBLE TAP
+            if (time - lastTapTime <= waitTime)
             {
-                // Start waiting to see if this was a double tap or just a single tap
-                if (tapCount == 1)
-                {
-                    if (singleTapCoroutine != null)
-                        StopCoroutine(singleTapCoroutine);
+                if (singleTapRoutine != null)
+                    StopCoroutine(singleTapRoutine);
+                if (holdRoutine != null)
+                    StopCoroutine(holdRoutine);
 
-                    singleTapCoroutine = StartCoroutine(SingleTapDelay());
-                }
+                lastTapTime = -1f;
+
+                OnDoubleTap?.Invoke();
+                return;
             }
 
-            isHolding = false;
+            lastTapTime = time;
+
+            // HOLD CHECK - The Following ORDER Matters
+            holdRoutine = StartCoroutine(HoldCheck(buttonDownStart));
+
+            // SINGLE TAP - Start waiting for single tap
+            singleTapRoutine = StartCoroutine(SingleTapCountdown());
         }
 
-        // Detect hold
-        if (buttonPressed && !isHolding && Time.time - buttonDownTime >= holdTime)
-        {
-            tapCount = 0;
-            isHolding = true;
-            OnHold?.Invoke();
-        }
+        if (holdRoutine != null && Input.GetKeyUp(actionKey))
+            StopCoroutine(holdRoutine);
     }
 
-    IEnumerator SingleTapDelay()
+    IEnumerator SingleTapCountdown()
     {
-        // Wait to confirm no second tap happens
-        yield return new WaitForSeconds(doubleTapTime);
+        yield return new WaitForSeconds(waitTime);
 
-        // If no second tap arrived in time, count as a single click
-        if (tapCount == 1)
+        OnSingleClick?.Invoke();
+    }
+
+    IEnumerator HoldCheck(float pressStartTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        // Make sure the same press is still active
+        if (pressStartTime == buttonDownStart)
         {
-            OnSingleClick?.Invoke();
-        }
+            if (singleTapRoutine != null)
+                StopCoroutine(singleTapRoutine);
 
-        tapCount = 0;
+            OnHold?.Invoke();
+        }
     }
 }
