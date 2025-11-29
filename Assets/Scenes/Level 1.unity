@@ -4584,8 +4584,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transDuration: 2
   playerRb: {fileID: 1427699645}
-  normalFOV: 40
-  maxZoomOutFOV: 60
+  normalFOV: 80
+  maxZoomOutFOV: 120
   zoomOutSpeed: 1
   zoomInSpeed: 3
   airTimeToMaxZoom: 1
