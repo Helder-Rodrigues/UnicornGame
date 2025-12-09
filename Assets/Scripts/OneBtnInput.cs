@@ -10,7 +10,7 @@ public class OneBtnInput : MonoBehaviour
     public KeyCode actionKey = KeyCode.K;
 
     [Header("Timing Settings")]
-    public float waitTime = 0.18f;
+    public float waitTime = 0.00f;
     private float lastTapTime = -1f;
     private float buttonDownStart = 0f;
 
