@@ -29,8 +29,10 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool isGrounded = false;
     private bool isDashing = false;
     private bool wallJumping = false;
+
+    private bool isJumping = false;
     private bool doubleJumpDone = false;
-    
+
     //Another References
     private Rigidbody rb;
     private GameObject activeShield;
@@ -56,27 +58,43 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         if (!isAlive) return;
+    }
+    private bool mustDash = false;
+    private void FixedUpdate()
+    {
+        // ACTIONS
+        if (isJumping)
+        {
+            isJumping = false;
+            rb.velocity = new Vector3(rb.velocity.x, 0, 0); // reset vertical speed
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
 
-        // Constant forward movement - only when not dashing or bouncing
+        if (mustDash)
+        {
+            mustDash = false;
+            Vector3 sideDashDir = moveSpeed < 0 ? Vector3.left : Vector3.right;
+            Vector3 dashDir = (sideDashDir + dashFactor * Vector3.down).normalized;
+            lastDashDir = dashDir;
+
+            rb.velocity = dashDir * dashForce;
+        }
+
+        // Ground check
+        VerifyGround();
+        if (isGrounded)
+            doubleJumpDone = false;
+
+        // isGrounded? Forward movement : Gravity
         if (!isDashing && !wallJumping)
         {
             if (isGrounded)
                 // Apply horizontal movement only while grounded
                 rb.velocity = new Vector3(moveSpeed, rb.velocity.y, 0);
+            else
+                // Extra gravity for better jump feel
+                rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
         }
-
-        // Extra gravity for better jump feel
-        if (!isGrounded && !isDashing && !wallJumping)
-            rb.AddForce(Vector3.down * gravityMultiplier, ForceMode.Acceleration);
-    }
-
-    private void FixedUpdate()
-    {
-        // Ground check
-        VerifyGround();
-        
-        if (isGrounded)
-            doubleJumpDone = false;
 
         //draw movement
         Debug.DrawRay(transform.position, Vector3.right * Mathf.Sign(moveSpeed), Color.red, float.MaxValue);
@@ -87,13 +105,12 @@ public class PlayerController : MonoBehaviour
         Vector3 extents = boxCol.size * 0.75f;
         extents = new(extents.x, extents.y / 2.85f, extents.z);
         Vector3 center = transform.position;
-        center.y += boxCol.size.y/4;
+        center.y += boxCol.size.y / 4;
         float distance = 1f;
 
         isGrounded = Physics.BoxCast(center, extents, Vector3.down, out _, transform.rotation, distance);
         //DebugBoxCast.DrawBoxCastOnHit(center, extents, transform.rotation, Vector3.down, distance, Color.red);
     }
-
 
     // ---------- ACTIONS ----------
     private void Jump()
@@ -104,8 +121,7 @@ public class PlayerController : MonoBehaviour
         if (!isGrounded)
             doubleJumpDone = true;
 
-        rb.velocity = new Vector3(rb.velocity.x, 0, 0); // reset vertical speed
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        isJumping = true;
     }
 
     private void Dash()
@@ -113,28 +129,13 @@ public class PlayerController : MonoBehaviour
         if (isGrounded || isDashing)
             return;
 
-        StartCoroutine(DashUntilCollision());
-    }
-
-    private IEnumerator DashUntilCollision()
-    {
         if (Physics.Raycast(transform.position, Vector3.right * Mathf.Sign(moveSpeed), 0.6f))
-            yield break;
+            return;
 
+        mustDash = true;
         isDashing = true;
+
         lastDashTime = Time.time;
-
-        Vector3 sideDashDir = moveSpeed < 0 ? Vector3.left : Vector3.right;
-        Vector3 dashDir = (sideDashDir + dashFactor * Vector3.down).normalized;
-        lastDashDir = dashDir;
-
-        rb.velocity = Vector3.zero;
-
-        while (isDashing)
-        {
-            rb.velocity = dashDir * dashForce;
-            yield return null;
-        }
     }
 
     private void Shield()
@@ -165,7 +166,9 @@ public class PlayerController : MonoBehaviour
             {
                 camController.FlipCameraOffset();
                 moveSpeed *= -1;
-                
+                Vector3 scale = transform.localScale;
+                transform.localScale = new(scale.x * -1f, scale.y, scale.z);
+
                 rb.velocity = new Vector3(moveSpeed, rb.velocity.y, 0);
             }
             return;
@@ -174,7 +177,7 @@ public class PlayerController : MonoBehaviour
         if (!isDashing)
         {
             Destroy(activeShield);
-            //activeShield = null;
+            activeShield = null;
 
             StopAllCoroutines();
             StartCoroutine(WallJump(normal, contactPoint));
@@ -208,14 +211,10 @@ public class PlayerController : MonoBehaviour
 
         // Wall on right
         if (Vector3.Dot(normal, transform.right) > 0.5f)
-        {
             wallDir = transform.right; // jump left
-        }
         // Wall on left
         else if (Vector3.Dot(normal, transform.right) < -0.5f)
-        {
             wallDir = -transform.right; // jump right
-        }
 
         if (wallDir != Vector3.zero)
         {
@@ -223,6 +222,8 @@ public class PlayerController : MonoBehaviour
 
             camController.FlipCameraOffset();
             moveSpeed *= -1;
+            Vector3 scale = transform.localScale;
+            transform.localScale = new(scale.x * -1f, scale.y, scale.z);
 
             Vector3 dir = (wallDir + Vector3.up * upwardFactor).normalized;
 
@@ -260,7 +261,7 @@ public class PlayerController : MonoBehaviour
         Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.black, 3f);
 
         // SANITY: ensure reflectDir points away from the surface
-        // If dot < 0 => reflectDir is pointing into the surface (bad), flip it.
+        // If dot < 0 => reflectDir is pointing into the surface, flip it
         if (Vector3.Dot(reflectDir, surfaceNormal) < 0f)
             reflectDir = -reflectDir;
 
@@ -276,6 +277,8 @@ public class PlayerController : MonoBehaviour
         {
             camController.FlipCameraOffset();
             moveSpeed *= -1;
+            Vector3 scale = transform.localScale;
+            transform.localScale = new(scale.x * -1f, scale.y, scale.z);
 
             // push horizontally away from wall (sign depends on normal.x)
             reflectDir = (reflectDir + Vector3.right * -Mathf.Sign(surfaceNormal.x) * 0.25f).normalized;

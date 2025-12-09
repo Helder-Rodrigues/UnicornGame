@@ -7,7 +7,7 @@ public class CamController : MonoBehaviour
 {
     [Header("Camera Settings")]
     [SerializeField] private float transDuration = 0.3f; // seconds to complete transition
-    private float camXOffset = 11f;
+    private float camXOffset;
     private CinemachineVirtualCamera vCam;
     private CinemachineFramingTransposer camTransposer;
     private Coroutine flipCoroutine;
@@ -16,6 +16,7 @@ public class CamController : MonoBehaviour
     {
         vCam = GetComponent<CinemachineVirtualCamera>();
         camTransposer = vCam.GetCinemachineComponent<CinemachineFramingTransposer>();
+        camXOffset = camTransposer.m_TrackedObjectOffset.x;
 
         currentZoom = normalFOV;
         vCam.m_Lens.FieldOfView = currentZoom;
@@ -53,6 +54,7 @@ public class CamController : MonoBehaviour
 
     // Camera Air Zoom
     [Header("References")]
+    [SerializeField] private PlayerController playerCtrlr;
     [SerializeField] private Rigidbody playerRb;
 
     [Header("Zoom Settings")]
@@ -67,21 +69,15 @@ public class CamController : MonoBehaviour
     private float airTime = 0f;
     private float currentZoom;
 
-    private bool isGrounded = true;
-
     private void Update()
     {
-        UpdateAirTime();
-        UpdateZoom();
+        //UpdateAirTime();
+        //UpdateZoom();
     }
 
     private void UpdateAirTime()
     {
-        // Aqui você coloca sua lógica real de grounded.
-        // Exemplo rápido:
-        isGrounded = Physics.Raycast(playerRb.transform.position, Vector3.down, 1.1f);
-
-        if (!isGrounded)
+        if (!playerCtrlr.isGrounded)
         {
             airTime += Time.deltaTime;
         }
@@ -98,7 +94,7 @@ public class CamController : MonoBehaviour
         float t = airTime / airTimeToMaxZoom;  // 0 → no chão, 1 → máximo no ar
         float targetZoom = Mathf.Lerp(normalFOV, maxZoomOutFOV, t);
 
-        if (isGrounded)
+        if (playerCtrlr.isGrounded)
         {
             // zoom-in rápido
             currentZoom = Mathf.Lerp(currentZoom, targetZoom, Time.deltaTime * zoomInSpeed);
