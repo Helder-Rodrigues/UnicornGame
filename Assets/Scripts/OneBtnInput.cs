@@ -7,7 +7,7 @@ public class OneBtnInput : MonoBehaviour
     [SerializeField] private PlayerController playerCtrlr;
 
     [Header("Button Settings")]
-    public KeyCode actionKey = KeyCode.K;
+    public static KeyCode actionKey = KeyCode.Space;
 
     [Header("Timing Settings")]
     public float waitTime = 0.00f;
@@ -23,6 +23,9 @@ public class OneBtnInput : MonoBehaviour
 
     void Update()
     {
+        if (PauseMenu.isPaused)
+            return;
+
         if (Input.GetKeyDown(actionKey))
         {
             float time = Time.time;
