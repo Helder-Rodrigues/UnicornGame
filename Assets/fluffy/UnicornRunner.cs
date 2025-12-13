@@ -11,7 +11,7 @@ public class UnicornRunner : MonoBehaviour
     public float doubleJumpDelay = 0.25f; // tempo max para 2º toque
     public float dashDoubleClickTime = 0.20f;
 
-    private Animator anim;
+    public Animator anim;
     private Rigidbody rb;
 
     private bool isGround = true;
@@ -22,7 +22,7 @@ public class UnicornRunner : MonoBehaviour
 
     void Start()
     {
-        anim = GetComponent<Animator>();
+        //anim = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
 
