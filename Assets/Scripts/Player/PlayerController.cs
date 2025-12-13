@@ -1,8 +1,5 @@
-﻿using Cinemachine;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
-using static DebugBoxCast;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
