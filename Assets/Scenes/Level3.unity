@@ -9221,15 +9221,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1005910825}
   m_LocalRotation: {x: -0.055271436, y: -0, z: -0, w: 0.9984714}
-  m_LocalPosition: {x: 0, y: 0, z: 769}
-  m_LocalScale: {x: 70.16919, y: 70.16919, z: 70.16919}
+  m_LocalPosition: {x: 0, y: 0, z: 751}
+  m_LocalScale: {x: 68.30971, y: 68.30971, z: 68.30971}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 453672238}
   m_LocalEulerAnglesHint: {x: -6.337, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -5.899994, y: 19.599998}
+  m_AnchoredPosition: {x: -5.899994, y: 185}
   m_SizeDelta: {x: 40.760616, y: 28.822464}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1005910827
@@ -9252,7 +9252,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 1be3659347290fc44a8d99449bac23d4, type: 3}
+  m_Texture: {fileID: 2800000, guid: 281bc52a41eb8bf4299d5df0d0d0299c, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -17509,7 +17509,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -19874,7 +19874,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 0
   m_CookingOptions: 30
@@ -20087,7 +20087,7 @@ SceneRoots:
   - {fileID: 1941812607}
   - {fileID: 1940880655}
   - {fileID: 689230439}
-  - {fileID: 453672238}
   - {fileID: 1983827686}
   - {fileID: 237251857}
   - {fileID: 2056183631}
+  - {fileID: 453672238}
