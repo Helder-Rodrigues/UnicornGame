@@ -24,16 +24,16 @@ public class PlayerController : MonoBehaviour
     //Status
     private bool isAlive = true;
     [HideInInspector] public bool isGrounded = false;
-    public bool isDashing = false;
+    [HideInInspector] public bool isDashing = false;
     private bool wallJumping = false;
 
     private bool isJumping = false;
-    public bool doubleJumpDone = false;
+    [HideInInspector] public bool doubleJumpDone = false;
 
     //Tutorial Status
-    public bool allowJump = true;
-    public bool allowDash = true;
-    public bool allowShield = true;
+    [HideInInspector] public bool allowJump = true;
+    [HideInInspector] public bool allowDash = true;
+    [HideInInspector] public bool allowShield = true;
     private Vector3 momentum;
 
 
