@@ -12841,7 +12841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb31cd00eb15f546b0057f17ffc873c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transDuration: 2
+  flipTransDuration: 0.3
 --- !u!114 &1192302820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19030,7 +19030,7 @@ MonoBehaviour:
   input: {fileID: 874172961}
   shieldPrefab: {fileID: 2665925376946678646, guid: 72ab45816447fa343bc1b6845a60d042,
     type: 3}
-  camController: {fileID: 0}
+  camController: {fileID: 1192302819}
   moveSpeed: 15
   jumpForce: 14
   dashForce: 30
@@ -19045,6 +19045,7 @@ MonoBehaviour:
   allowJump: 1
   allowDash: 1
   allowShield: 1
+  rb: {fileID: 1427699645}
   activeShield: {fileID: 0}
 --- !u!54 &1427699645
 Rigidbody:
