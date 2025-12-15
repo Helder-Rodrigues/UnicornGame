@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private CamController camController;
 
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 5f;
+    public float moveSpeed = 5f;
     [SerializeField] private float jumpForce = 13f;
     [SerializeField] private float dashForce = 30f;
     [SerializeField] private float gravityMultiplier = 3.35f;
@@ -24,15 +24,22 @@ public class PlayerController : MonoBehaviour
     //Status
     private bool isAlive = true;
     [HideInInspector] public bool isGrounded = false;
-    private bool isDashing = false;
+    public bool isDashing = false;
     private bool wallJumping = false;
 
     private bool isJumping = false;
-    private bool doubleJumpDone = false;
+    public bool doubleJumpDone = false;
+
+    //Tutorial Status
+    public bool allowJump = true;
+    public bool allowDash = true;
+    public bool allowShield = true;
+    private Vector3 momentum;
+
 
     //Another References
     private Rigidbody rb;
-    private GameObject activeShield;
+    public GameObject activeShield;
     private BoxCollider boxCol;
 
     //Info
@@ -109,25 +116,52 @@ public class PlayerController : MonoBehaviour
         //DebugBoxCast.DrawBoxCastOnHit(center, extents, transform.rotation, Vector3.down, distance, Color.red);
     }
 
+    public void FreezeMovement(bool freeze)
+    {
+        if (freeze)
+            momentum = rb.velocity;
+
+        rb.isKinematic = freeze;
+        rb.velocity = freeze ? Vector3.zero : momentum;
+    }
+
     // ---------- ACTIONS ----------
     private void Jump()
     {
-        if (doubleJumpDone)
+        if (doubleJumpDone || !allowJump)
             return;
 
         if (!isGrounded)
             doubleJumpDone = true;
+
+        bool inTutorial = !allowDash && !allowShield;
+        if (inTutorial)
+        {
+            FreezeMovement(false);
+
+            allowDash = true;
+            allowShield = true;
+        }
 
         isJumping = true;
     }
 
     private void Dash()
     {
-        if (isGrounded || isDashing)
+        if (isGrounded || isDashing || !allowDash)
             return;
 
         if (Physics.Raycast(transform.position, Vector3.right * Mathf.Sign(moveSpeed), 0.6f))
             return;
+
+        bool inTutorial = !allowJump && !allowShield;
+        if (inTutorial)
+        {
+            FreezeMovement(false);
+
+            allowJump = true;
+            allowShield = true;
+        }
 
         mustDash = true;
         isDashing = true;
@@ -137,7 +171,16 @@ public class PlayerController : MonoBehaviour
 
     private void Shield()
     {
-        if (isGrounded || activeShield != null) return; // Only one at a time
+        if (isGrounded || activeShield != null || !allowShield) return; // Only one at a time
+
+        bool inTutorial = !allowDash && !allowJump;
+        if (inTutorial)
+        {
+            FreezeMovement(false);
+
+            allowJump = true;
+            allowDash = true;
+        }
 
         activeShield = Instantiate(shieldPrefab, transform.position, Quaternion.identity);
         activeShield.transform.SetParent(transform);

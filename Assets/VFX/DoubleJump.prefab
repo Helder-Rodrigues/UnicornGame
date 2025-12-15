@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 388125007203346977}
   m_Layer: 0
-  m_Name: Jump
+  m_Name: DoubleJump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

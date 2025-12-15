@@ -48,4 +48,9 @@ public class CamController : MonoBehaviour
         final.x = targetX;
         camTransposer.m_TrackedObjectOffset = final;
     }
+
+    public void RemoveFollowTarget()
+    {
+        vCam.Follow = null;
+    }
 }

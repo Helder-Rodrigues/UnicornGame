@@ -10,8 +10,8 @@ public class CameraJumpZoom : MonoBehaviour
 
     [Header("Zoom Settings")]
     [SerializeField] private float normalFOV = 80f;
-    [SerializeField] private float maxZoomOutFOV = 100f;
-    [SerializeField] private float zoomOutSpeed = 1f;
+    [SerializeField] private float maxZoomOutFOV = 120f;
+    [SerializeField] private float zoomOutSpeed = 0.1f;
     [SerializeField] private float zoomInSpeed = 3f;
     [SerializeField] private float groundedZoomInSpeed = 6f;
 
@@ -31,6 +31,10 @@ public class CameraJumpZoom : MonoBehaviour
 
     private void Update()
     {
+        //player dead
+        if (rb == null)
+            return;
+
         HandleVerticalMovementState();
         UpdateCameraZoom();
     }
@@ -54,7 +58,6 @@ public class CameraJumpZoom : MonoBehaviour
         else
         {
             // Parou de subir ou está no chão → reset de contador
-            airUpTime = 0f;
 
             // Se está a descer ou grounded → inicia zoom IN
             if (zoomingOut)
@@ -64,9 +67,11 @@ public class CameraJumpZoom : MonoBehaviour
             }
         }
 
-        // Se encostou no chão → zoom in mais rápido
+        // Se encostou no chão: zoom in mais rápido
         if (playerCtrlr.isGrounded)
         {
+            airUpTime = 0f;
+
             zoomingIn = true;
             zoomingOut = false;
         }

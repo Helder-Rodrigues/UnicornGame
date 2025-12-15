@@ -6,6 +6,7 @@ public class DeathTrigger : MonoBehaviour
 {
     [SerializeField] private GameObject deathFxPrefab;
     [SerializeField] private PauseMenu pauseMenu;
+    [SerializeField] private CamController camController;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,6 +16,8 @@ public class DeathTrigger : MonoBehaviour
 
     private IEnumerator DeathSequence(Collider player)
     {
+        camController.RemoveFollowTarget();
+
         GameObject fx = Instantiate(deathFxPrefab, player.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.05f);
         Destroy(player.gameObject);

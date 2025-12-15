@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using static UnityEngine.Rendering.DebugUI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -15,24 +16,31 @@ public class PauseMenu : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyUp(KeyCode.Escape))
+        if (Input.GetKeyUp(KeyCode.Escape) && !isPaused)
             TogglePauseMenu();
     }
 
-    private void TogglePauseMenu(bool? value = null)
+    private void TogglePauseMenu(bool? toPause = null)
     {
-        if (value == null)
-            value = !pauseMenu.activeSelf;
-        isPaused = (bool)value;
+        if (toPause == null)
+            toPause = !pauseMenu.activeSelf;
+        isPaused = (bool)toPause;
 
-        if (isPaused)
-            Time.timeScale = 0f;
-        else
-            Time.timeScale = 1f;
-
-        lvlTimer.ToggleTimer(!isPaused);
+        TogglePauseGame(isPaused);
 
         pauseMenu.SetActive(isPaused);
+    }
+
+    //Pauses GamePlay and Timer
+    public void TogglePauseGame(bool? toPause = null)
+    {
+        if (toPause == null)
+            toPause = !isPaused;
+        isPaused = (bool)toPause;
+
+        Time.timeScale = isPaused ? 0f : 1f;
+
+        lvlTimer.ToggleTimer(!isPaused);
     }
 
     public void OnContinueBtn()
@@ -42,6 +50,7 @@ public class PauseMenu : MonoBehaviour
 
     public void OnExitBtn()
     {
+        isPaused = false;
         SceneManager.LoadScene("LevelMenu");
     }
 }

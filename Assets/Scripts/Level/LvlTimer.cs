@@ -26,15 +26,12 @@ public class LvlTimer : MonoBehaviour
             levelTime += Time.deltaTime;
     }
 
-    public void ToggleTimer(bool? value = null)
+    public void ToggleTimer(bool? toRun = null)
     {
-        if (value != null)
-        {
-            timerRunning = (bool)value;
-            return;
-        }
-
-        timerRunning = !timerRunning;
+        if (toRun == null)
+            toRun = !timerRunning;
+        
+        timerRunning = (bool)toRun;
     }
 
     // Called by the FinishTrigger

@@ -7,8 +7,8 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Idle
-  m_Speed: 1
+  m_Name: Walking 0
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 767214818838275624}
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: -1422011007694221501, guid: e3376595673af304695148293868fc4a,
+  m_Motion: {fileID: -1422011007694221501, guid: 135d8ba4533a1684ea798689d0161c93,
     type: 3}
   m_Tag: 
   m_SpeedParameter: 
@@ -70,7 +70,7 @@ AnimatorStateMachine:
     m_Position: {x: 510, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2088493430870828362}
-    m_Position: {x: 280, y: 280, z: 0}
+    m_Position: {x: 240, y: 280, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 6183087326264643928}
     m_Position: {x: 930, y: 220, z: 0}
@@ -82,10 +82,10 @@ AnimatorStateMachine:
   m_StateMachineTransitions: {}
   m_StateMachineBehaviours: []
   m_AnyStatePosition: {x: 580, y: 0, z: 0}
-  m_EntryPosition: {x: 50, y: 120, z: 0}
+  m_EntryPosition: {x: -20, y: 120, z: 0}
   m_ExitPosition: {x: 920, y: 50, z: 0}
   m_ParentStateMachinePosition: {x: 800, y: 20, z: 0}
-  m_DefaultState: {fileID: -8984362586176599074}
+  m_DefaultState: {fileID: -2088493430870828362}
 --- !u!1101 &-2178598005417850510
 AnimatorStateTransition:
   m_ObjectHideFlags: 1
@@ -119,7 +119,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Walking
-  m_Speed: 1
+  m_Speed: 2
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -2178598005417850510}
@@ -197,7 +197,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 9100000}
   - m_Name: jump
     m_Type: 9

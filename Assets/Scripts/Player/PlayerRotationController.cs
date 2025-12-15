@@ -19,6 +19,9 @@ public class PlayerRotationController : MonoBehaviour
     {
         Vector3 vel = rb.velocity;
 
+        if (playerCtrl.moveSpeed < 0)
+            vel *= -1;
+
         float targetAngle = 0f;
 
         // If airborne, tilt based on horizontal velocity
