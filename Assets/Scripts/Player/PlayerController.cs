@@ -38,8 +38,8 @@ public class PlayerController : MonoBehaviour
 
 
     //Another References
-    private Rigidbody rb;
-    public GameObject activeShield;
+    [SerializeField] private Rigidbody rb;
+    [HideInInspector] public GameObject activeShield;
     private BoxCollider boxCol;
 
     //Info
@@ -48,7 +48,6 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         rb.constraints = RigidbodyConstraints.FreezeRotation; // Prevent tipping over
 
         boxCol = GetComponent<BoxCollider>();
@@ -151,10 +150,11 @@ public class PlayerController : MonoBehaviour
         if (isGrounded || isDashing || !allowDash)
             return;
 
-        if (Physics.Raycast(transform.position, Vector3.right * Mathf.Sign(moveSpeed), 0.6f))
+        bool inTutorial = !allowJump && !allowShield;
+
+        if (Physics.Raycast(transform.position, Vector3.right * Mathf.Sign(moveSpeed), 0.6f) && !inTutorial)
             return;
 
-        bool inTutorial = !allowJump && !allowShield;
         if (inTutorial)
         {
             FreezeMovement(false);

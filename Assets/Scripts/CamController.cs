@@ -2,16 +2,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static System.TimeZoneInfo;
 
 public class CamController : MonoBehaviour
 {
     [Header("Camera Settings")]
-    [SerializeField] private float transDuration = 0.3f; // seconds to complete transition
+    [SerializeField] private float flipTransDuration = 0.3f; // seconds to complete transition
     private float camXOffset;
     private CinemachineVirtualCamera vCam;
     private CinemachineFramingTransposer camTransposer;
     private Coroutine flipCoroutine;
-
+    
     private void Start()
     {
         vCam = GetComponent<CinemachineVirtualCamera>();
@@ -34,10 +35,10 @@ public class CamController : MonoBehaviour
         Vector3 startOffset = camTransposer.m_TrackedObjectOffset;
         float elapsed = 0f;
 
-        while (elapsed < transDuration)
+        while (elapsed < flipTransDuration)
         {
             elapsed += Time.deltaTime;
-            float t = Mathf.Clamp01(elapsed / transDuration);
+            float t = Mathf.Clamp01(elapsed / flipTransDuration);
             Vector3 newOffset = startOffset;
             newOffset.x = Mathf.Lerp(startOffset.x, targetX, t);
             camTransposer.m_TrackedObjectOffset = newOffset;
