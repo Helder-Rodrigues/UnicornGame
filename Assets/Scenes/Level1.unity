@@ -22126,7 +22126,7 @@ MonoBehaviour:
   playerController: {fileID: 1427699644}
   inputController: {fileID: 874172961}
   inputType: 0
-  tutBoxMessage: {fileID: 6989170750982772189, guid: 96572ee9f4cca8842b22236ac6145ca7,
+  tutBoxMessage: {fileID: 3660222615256508444, guid: a775889e5f8249344a9508167bcaeca5,
     type: 3}
   tutText: Press the button that you pressed in the Title Screen to Jump!
   tutBoxPos: {x: -261, y: -124, z: 0}
