@@ -5814,7 +5814,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1722224879}
 --- !u!65 &110135811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7007,7 +7007,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1722224879}
 --- !u!65 &209972440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8188,7 +8188,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1722224879}
 --- !u!65 &397579717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14100,7 +14100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c331176d4c8cebb42af444b6e0005700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCtrlr: {fileID: 0}
+  playerCtrlr: {fileID: 583131450}
   waitTime: 0.18
 --- !u!1 &874295020
 GameObject:
