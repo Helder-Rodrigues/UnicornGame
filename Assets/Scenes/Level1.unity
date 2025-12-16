@@ -1546,7 +1546,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: fcc1e5e6017c06d44a4616a9dc3b9d1b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -1868,111 +1868,6 @@ Transform:
   - {fileID: 238048453}
   m_Father: {fileID: 1377449894}
   m_LocalEulerAnglesHint: {x: 43.894978, y: -170.37234, z: 164.66638}
---- !u!1 &296973164
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 296973165}
-  - component: {fileID: 296973168}
-  - component: {fileID: 296973167}
-  - component: {fileID: 296973166}
-  m_Layer: 0
-  m_Name: Cube (32)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &296973165
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296973164}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -171.52, y: 22.1, z: 0}
-  m_LocalScale: {x: 1, y: 8.986352, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 483023012}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
---- !u!65 &296973166
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296973164}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &296973167
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296973164}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &296973168
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 296973164}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &321000938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3227,7 +3122,6 @@ Transform:
   - {fileID: 1714097523}
   - {fileID: 1279873172}
   - {fileID: 1471529455}
-  - {fileID: 296973165}
   - {fileID: 887439055}
   - {fileID: 1067642506}
   - {fileID: 934693515}
@@ -16142,7 +16036,7 @@ Transform:
   m_GameObject: {fileID: 929139494}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -21943,9 +21837,9 @@ MonoBehaviour:
   playerController: {fileID: 1427699644}
   inputController: {fileID: 874172961}
   inputType: 0
-  tutBoxMessage: {fileID: 3660222615256508444, guid: a775889e5f8249344a9508167bcaeca5,
+  tutBoxMessage: {fileID: 4550660544136618123, guid: 71e9476b64f3fc045a840ce1ce21dc4d,
     type: 3}
-  tutText: Press the button that you pressed in the Title Screen to Jump!
+  tutText: Press the button pressed in the Title Screen to Jump!
   tutBoxPos: {x: -261, y: -124, z: 0}
 --- !u!65 &1785317498
 BoxCollider:
@@ -22995,7 +22889,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 2d89ea0aac7e9304088d070163484b62, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -23469,7 +23363,7 @@ MonoBehaviour:
   playerController: {fileID: 1427699644}
   inputController: {fileID: 874172961}
   inputType: 2
-  tutBoxMessage: {fileID: 6989170750982772189, guid: 96572ee9f4cca8842b22236ac6145ca7,
+  tutBoxMessage: {fileID: 6579945833608540912, guid: a775889e5f8249344a9508167bcaeca5,
     type: 3}
   tutText: Hold For a Buble between each wall!
   tutBoxPos: {x: -128, y: -117, z: 0}
