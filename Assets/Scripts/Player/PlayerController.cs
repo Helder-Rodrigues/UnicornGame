@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-     
+
         rb.constraints = RigidbodyConstraints.FreezeRotation; // Prevent tipping over
 
         boxCol = GetComponent<BoxCollider>();
@@ -62,11 +62,6 @@ public class PlayerController : MonoBehaviour
         input.OnSingleClick += Jump;
         input.OnDoubleTap += Dash;
         input.OnHold += Shield;
-    }
-
-    private void Update()
-    {
-        audioManager.PlaySFX(audioManager.rainbow);
     }
 
     private bool mustDash = false;
@@ -94,8 +89,6 @@ public class PlayerController : MonoBehaviour
         VerifyGround();
         if (isGrounded)
         {
-            audioManager.PlaySFX(audioManager.galloping);
-
             doubleJumpDone = false;
 
             animator.SetBool("DoubleJump", false);
@@ -378,6 +371,7 @@ public class PlayerController : MonoBehaviour
     // ---------- OTHER ----------
     private void OnDestroy()
     {
-        audioManager.PlaySFX(audioManager.crowdBooing);
+        if (audioManager != null)
+            audioManager.PlaySFX(audioManager.crowdBooing);
     }
 }

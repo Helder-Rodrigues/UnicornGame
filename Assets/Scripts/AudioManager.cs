@@ -21,8 +21,6 @@ public class AudioManager : MonoBehaviour
     public AudioClip dash;
     public AudioClip galloping;
     public AudioClip jump;
-    public AudioClip portal;
-    public AudioClip rainbow;
     public AudioClip snortingHorse;
     public AudioClip snortingHorseDying;
 
