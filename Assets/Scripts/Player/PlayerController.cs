@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float upwardFactor = 0.7f; // how much "up" to add to the wall jump
 
     //Status
-    private bool isAlive = true;
     [HideInInspector] public bool isGrounded = false;
     [HideInInspector] public bool isDashing = false;
     private bool wallJumping = false;
@@ -48,8 +47,13 @@ public class PlayerController : MonoBehaviour
     private float lastDashTime;
     private Vector3 lastDashDir;
 
+    //Audio
+    private AudioManager audioManager;
+
     void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+     
         rb.constraints = RigidbodyConstraints.FreezeRotation; // Prevent tipping over
 
         boxCol = GetComponent<BoxCollider>();
@@ -62,9 +66,9 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!isAlive) return;
+        audioManager.PlaySFX(audioManager.rainbow);
     }
-    
+
     private bool mustDash = false;
     private void FixedUpdate()
     {
@@ -90,6 +94,8 @@ public class PlayerController : MonoBehaviour
         VerifyGround();
         if (isGrounded)
         {
+            audioManager.PlaySFX(audioManager.galloping);
+
             doubleJumpDone = false;
 
             animator.SetBool("DoubleJump", false);
@@ -152,7 +158,9 @@ public class PlayerController : MonoBehaviour
             allowShield = true;
         }
 
-        animator.SetBool(doubleJumpDone? "DoubleJump" : "jump", true);
+        audioManager.PlaySFX(audioManager.jump);
+
+        animator.SetBool(doubleJumpDone ? "DoubleJump" : "jump", true);
         animator.SetBool("isGrounded", false);
 
         isJumping = true;
@@ -176,6 +184,7 @@ public class PlayerController : MonoBehaviour
             allowShield = true;
         }
 
+        audioManager.PlaySFX(audioManager.dash);
         animator.SetBool("Dash", true);
 
         mustDash = true;
@@ -230,6 +239,7 @@ public class PlayerController : MonoBehaviour
 
         if (!isDashing)
         {
+            audioManager.PlaySFX(audioManager.bounce);
             Destroy(activeShield);
             activeShield = null;
 
@@ -251,7 +261,9 @@ public class PlayerController : MonoBehaviour
         //Debug.Log("Valid bounce (consuming shield)");
         Debug.DrawRay(contactPoint, normal * 1f, Color.red, 3f);       // surface normal
         Debug.DrawRay(contactPoint, lastDashDir * 2f, Color.blue, 3f); // incoming
-                                                                       // consume shield
+
+        audioManager.PlaySFX(audioManager.bounce);
+        // consume shield
         Destroy(activeShield);
         activeShield = null;
 
@@ -363,20 +375,9 @@ public class PlayerController : MonoBehaviour
         isDashing = false;
     }
 
-
-    // ---------- DAMAGE ----------
-    public void TakeDamage()
+    // ---------- OTHER ----------
+    private void OnDestroy()
     {
-        if (activeShield != null)
-        {
-            Destroy(activeShield);
-            activeShield = null;
-        }
-        else
-        {
-            isAlive = false;
-            rb.velocity = Vector3.zero;
-            Debug.Log("Player Dead");
-        }
+        audioManager.PlaySFX(audioManager.crowdBooing);
     }
 }

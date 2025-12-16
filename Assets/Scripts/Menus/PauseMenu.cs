@@ -9,8 +9,13 @@ public class PauseMenu : MonoBehaviour
 
     public static bool isPaused = false;
 
+    //Audio
+    private AudioManager audioManager;
+
     private void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    
         TogglePauseMenu(false);
     }
 
@@ -45,11 +50,13 @@ public class PauseMenu : MonoBehaviour
 
     public void OnContinueBtn()
     {
+        audioManager.PlaySFX(audioManager.clickCardboard);
         TogglePauseMenu();
     }
 
     public void OnExitBtn()
     {
+        audioManager.PlaySFX(audioManager.clickCardboard);
         isPaused = false;
         SceneManager.LoadScene("LevelMenu");
     }

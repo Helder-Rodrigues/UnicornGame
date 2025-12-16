@@ -12,8 +12,13 @@ public class LevelMenu : MonoBehaviour
     public static int recordLvl2Sec = -1;
     public static int recordLvl3Sec = -1;
 
+    //Audio
+    private AudioManager audioManager;
+
     private void Start()
     {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+     
         UpdateRecord(recordLvl1Sec, recordLvl1Text);
         UpdateRecord(recordLvl2Sec, recordLvl2Text);
         UpdateRecord(recordLvl3Sec, recordLvl3Text);
@@ -68,19 +73,19 @@ public class LevelMenu : MonoBehaviour
 
     public void OnclickLvl1()
     {
+        audioManager.PlaySFX(audioManager.clickCardboard);
         SceneManager.LoadScene("Level1");
     }
 
     public void OnclickLvl2()
     {
+        audioManager.PlaySFX(audioManager.clickCardboard);
         SceneManager.LoadScene("Level2");
     }
 
     public void OnclickLvl3()
     {
+        audioManager.PlaySFX(audioManager.clickCardboard);
         SceneManager.LoadScene("Level3");
     }
-
-
-
 }
