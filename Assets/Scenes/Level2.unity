@@ -5679,6 +5679,7 @@ MonoBehaviour:
   allowJump: 1
   allowDash: 1
   allowShield: 1
+  animator: {fileID: 1137441081}
   rb: {fileID: 854357200}
   activeShield: {fileID: 0}
 --- !u!54 &854357200

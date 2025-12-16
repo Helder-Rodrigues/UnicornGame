@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
     [HideInInspector] public bool allowShield = true;
     private Vector3 momentum;
 
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
 
     //Another References
     [SerializeField] private Rigidbody rb;
@@ -62,6 +64,7 @@ public class PlayerController : MonoBehaviour
     {
         if (!isAlive) return;
     }
+    
     private bool mustDash = false;
     private void FixedUpdate()
     {
@@ -86,7 +89,15 @@ public class PlayerController : MonoBehaviour
         // Ground check
         VerifyGround();
         if (isGrounded)
+        {
             doubleJumpDone = false;
+
+            animator.SetBool("DoubleJump", false);
+            animator.SetBool("jump", false);
+            animator.SetBool("Dash", false);
+            
+            animator.SetBool("isGrounded", true);
+        }
 
         // isGrounded? Forward movement : Gravity
         if (!isDashing && !wallJumping)
@@ -142,6 +153,9 @@ public class PlayerController : MonoBehaviour
             allowShield = true;
         }
 
+        animator.SetBool(doubleJumpDone? "DoubleJump" : "jump", true);
+        animator.SetBool("isGrounded", false);
+
         isJumping = true;
     }
 
@@ -162,6 +176,8 @@ public class PlayerController : MonoBehaviour
             allowJump = true;
             allowShield = true;
         }
+
+        animator.SetBool("Dash", true);
 
         mustDash = true;
         isDashing = true;
