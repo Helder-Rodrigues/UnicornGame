@@ -95,11 +95,10 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("DoubleJump", false);
             animator.SetBool("jump", false);
             animator.SetBool("Dash", false);
-            
-            animator.SetBool("isGrounded", true);
         }
+        animator.SetBool("isGrounded", isGrounded);
 
-        // isGrounded? Forward movement : Gravity
+        // isGrounded? Forward movement else Gravity
         if (!isDashing && !wallJumping)
         {
             if (isGrounded)
