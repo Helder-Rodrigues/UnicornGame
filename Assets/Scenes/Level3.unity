@@ -6361,7 +6361,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1444273202}
 --- !u!65 &110135811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7310,7 +7310,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1444273202}
 --- !u!65 &209972440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9016,7 +9016,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1444273202}
 --- !u!65 &397579717
 BoxCollider:
   m_ObjectHideFlags: 0
