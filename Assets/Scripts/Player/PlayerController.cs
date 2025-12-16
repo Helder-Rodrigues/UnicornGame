@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
     [Header("Animation")]
     [SerializeField] private Animator animator;
 
-    //Another References
+    [Header("Another References")]
     [SerializeField] private Rigidbody rb;
     [HideInInspector] public GameObject activeShield;
     private BoxCollider boxCol;
@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour
     private Vector3 lastDashDir;
 
     //Audio
+    [Header("Audio")]
+    [SerializeField] private AudioSource gallopingSource;
     private AudioManager audioManager;
 
     void Start()
@@ -96,6 +98,7 @@ public class PlayerController : MonoBehaviour
             animator.SetBool("Dash", false);
         }
         animator.SetBool("isGrounded", isGrounded);
+        gallopingSource.mute = !isGrounded;
 
         // isGrounded? Forward movement else Gravity
         if (!isDashing && !wallJumping)
@@ -366,12 +369,5 @@ public class PlayerController : MonoBehaviour
         yield return new WaitUntil(() => isGrounded);
 
         isDashing = false;
-    }
-
-    // ---------- OTHER ----------
-    private void OnDestroy()
-    {
-        if (audioManager != null)
-            audioManager.PlaySFX(audioManager.crowdBooing);
     }
 }

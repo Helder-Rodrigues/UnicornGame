@@ -7,6 +7,13 @@ public class DeathTrigger : MonoBehaviour
     [SerializeField] private GameObject deathFxPrefab;
     [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private CamController camController;
+    //Audio
+    private AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,6 +23,8 @@ public class DeathTrigger : MonoBehaviour
 
     private IEnumerator DeathSequence(Collider player)
     {
+        audioManager.PlaySFX(audioManager.crowdBooing);
+
         camController.RemoveFollowTarget();
 
         GameObject fx = Instantiate(deathFxPrefab, player.transform.position, Quaternion.identity);
