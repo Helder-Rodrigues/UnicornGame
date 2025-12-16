@@ -6361,7 +6361,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1444273202}
 --- !u!65 &110135811
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7310,7 +7310,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1444273202}
 --- !u!65 &209972440
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -9016,7 +9016,7 @@ MonoBehaviour:
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
   pauseMenu: {fileID: 249549010}
-  camController: {fileID: 0}
+  camController: {fileID: 1444273202}
 --- !u!65 &397579717
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17178,7 +17178,7 @@ RectTransform:
   m_GameObject: {fileID: 1005910825}
   m_LocalRotation: {x: -0.055271436, y: -0, z: -0, w: 0.9984714}
   m_LocalPosition: {x: 0, y: 0, z: 751}
-  m_LocalScale: {x: 68.30971, y: 68.30971, z: 68.30971}
+  m_LocalScale: {x: 98.20717, y: 98.20717, z: 98.20717}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 453672238}
@@ -26711,7 +26711,7 @@ MonoBehaviour:
   vcam: {fileID: 1444273203}
   rb: {fileID: 58665326}
   playerCtrlr: {fileID: 58665325}
-  normalFOV: 90
+  normalFOV: 110
   maxZoomOutFOV: 110
   zoomOutSpeed: 0.15
   zoomInSpeed: 0.5
