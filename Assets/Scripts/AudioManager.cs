@@ -11,16 +11,20 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource sfxSource;
 
     [Header("Audio Clips")]
-    [SerializeField] private AudioClip audienceBeforeShow;
-    [SerializeField] private AudioClip levelMusic;
-
-    public AudioClip applause;
+    //Music
+    public AudioClip levelMusic;
+    
+    //Actions
     public AudioClip bounce;
-    public AudioClip clickCardboard;
-    public AudioClip crowdBooing;
     public AudioClip dash;
-    public AudioClip galloping;
     public AudioClip jump;
+
+    //Other
+    public AudioClip applause;
+    public AudioClip crowdBooing;
+    public AudioClip clickCardboard;
+
+    //Not used for now
     public AudioClip snortingHorse;
     public AudioClip snortingHorseDying;
 

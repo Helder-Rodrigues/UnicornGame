@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static UnityEngine.Rendering.DebugUI;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -33,7 +32,7 @@ public class PauseMenu : MonoBehaviour
 
         TogglePauseGame(isPaused);
 
-        pauseMenu.SetActive(isPaused);
+        HidePauseMenu(!isPaused);
     }
 
     //Pauses GamePlay and Timer
@@ -48,6 +47,8 @@ public class PauseMenu : MonoBehaviour
         lvlTimer.ToggleTimer(!isPaused);
     }
 
+    public void HidePauseMenu(bool hide) => pauseMenu.SetActive(!hide);
+
     public void OnContinueBtn()
     {
         audioManager.PlaySFX(audioManager.clickCardboard);
@@ -59,5 +60,14 @@ public class PauseMenu : MonoBehaviour
         audioManager.PlaySFX(audioManager.clickCardboard);
         isPaused = false;
         SceneManager.LoadScene("LevelMenu");
+    }
+    
+    public void OnOptionsBtn()
+    {
+        audioManager.PlaySFX(audioManager.clickCardboard);
+
+        HidePauseMenu(true);
+
+        SceneManager.LoadScene("OptionsMenu", LoadSceneMode.Additive);
     }
 }
