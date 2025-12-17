@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Stencil Opaque
-    Event: 300
+    Event: 500
     filterSettings:
       RenderQueueType: 0
       LayerMask:

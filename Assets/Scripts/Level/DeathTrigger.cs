@@ -25,7 +25,7 @@ public class DeathTrigger : MonoBehaviour
     {
         audioManager.PlaySFX(audioManager.crowdBooing);
 
-        camController.RemoveFollowTarget();
+        camController.FollowTarget();
 
         GameObject fx = Instantiate(deathFxPrefab, player.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(0.05f);
