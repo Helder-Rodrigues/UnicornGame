@@ -92,7 +92,7 @@ MonoBehaviour:
     m_Bits: 119
   m_DefaultStencilState:
     overrideStencilState: 0
-    stencilReference: 0
+    stencilReference: 1
     stencilCompareFunction: 8
     passOperation: 2
     failOperation: 0
@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Active: 1
   settings:
     passTag: Stencil Opaque
-    Event: 500
+    Event: 300
     filterSettings:
       RenderQueueType: 0
       LayerMask:
