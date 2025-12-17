@@ -156,8 +156,11 @@ public class PlayerController : MonoBehaviour
 
         audioManager.PlaySFX(audioManager.jump);
 
-        animator.SetBool(doubleJumpDone ? "DoubleJump" : "jump", true);
-        animator.SetBool("isGrounded", false);
+        if (animator != null)
+        {
+            animator.SetBool(doubleJumpDone ? "DoubleJump" : "jump", true);
+            animator.SetBool("isGrounded", false);
+        }
 
         isJumping = true;
     }
