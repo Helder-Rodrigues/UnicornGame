@@ -3887,12 +3887,12 @@ GameObject:
   - component: {fileID: 453328440}
   - component: {fileID: 453328439}
   m_Layer: 0
-  m_Name: Cube (16)
+  m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &453328438
 Transform:
   m_ObjectHideFlags: 0
@@ -3901,12 +3901,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453328437}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: -79.6, y: 7.19, z: 0}
-  m_LocalScale: {x: 1, y: 9.821003, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -0.145, y: 0.737, z: 0.5}
+  m_LocalScale: {x: 0.26452225, y: 11.2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 483023012}
+  m_Father: {fileID: 2093053680}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!65 &453328439
 BoxCollider:
@@ -3936,7 +3936,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 453328437}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -4419,7 +4419,6 @@ Transform:
   - {fileID: 781258993}
   - {fileID: 1454500924}
   - {fileID: 1651721454}
-  - {fileID: 453328438}
   - {fileID: 1519043774}
   - {fileID: 2092216676}
   - {fileID: 1598979105}
@@ -19212,9 +19211,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: Rocha_volcanica
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7901325060499510201, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
+    - {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4962486957157358820, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 453328438}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
 --- !u!1 &1033214273
