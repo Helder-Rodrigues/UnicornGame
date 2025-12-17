@@ -58,7 +58,7 @@ public class PauseMenu : MonoBehaviour
     public void OnExitBtn()
     {
         audioManager.PlaySFX(audioManager.clickCardboard);
-        isPaused = false;
+        TogglePauseMenu();
         SceneManager.LoadScene("LevelMenu");
     }
     

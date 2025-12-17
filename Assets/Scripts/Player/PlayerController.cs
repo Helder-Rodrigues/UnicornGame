@@ -112,7 +112,7 @@ public class PlayerController : MonoBehaviour
         }
 
         //draw movement
-        Debug.DrawRay(transform.position, Vector3.right * Mathf.Sign(moveSpeed), Color.red, float.MaxValue);
+        //Debug.DrawRay(transform.position, Vector3.right * Mathf.Sign(moveSpeed), Color.red, float.MaxValue);
     }
 
     private void VerifyGround()
@@ -248,15 +248,15 @@ public class PlayerController : MonoBehaviour
         if (timeSinceDash > maxBounceDelay)
         {
             isDashing = false;
-            Debug.Log($"Dash too old: {timeSinceDash:F3}s (max {maxBounceDelay:F3})");
-            Debug.DrawRay(contactPoint, normal * 1f, Color.red, 2f);
+            //Debug.Log($"Dash too old: {timeSinceDash:F3}s (max {maxBounceDelay:F3})");
+            //Debug.DrawRay(contactPoint, normal * 1f, Color.red, 2f);
             return;
         }
 
         // Valid bounce: show debug rays for inspection
         //Debug.Log("Valid bounce (consuming shield)");
-        Debug.DrawRay(contactPoint, normal * 1f, Color.red, 3f);       // surface normal
-        Debug.DrawRay(contactPoint, lastDashDir * 2f, Color.blue, 3f); // incoming
+        //Debug.DrawRay(contactPoint, normal * 1f, Color.red, 3f);       // surface normal
+        //Debug.DrawRay(contactPoint, lastDashDir * 2f, Color.blue, 3f); // incoming
 
         audioManager.PlaySFX(audioManager.bounce);
         // consume shield
@@ -289,8 +289,8 @@ public class PlayerController : MonoBehaviour
 
             Vector3 dir = (wallDir + Vector3.up * upwardFactor).normalized;
 
-            Debug.DrawRay(contactPoint, wallDir * 2f, Color.red, float.MaxValue);       // surface normal
-            Debug.DrawRay(contactPoint, dir * 2f, Color.blue, float.MaxValue);       // surface normal
+            //Debug.DrawRay(contactPoint, wallDir * 2f, Color.red, float.MaxValue);       // surface normal
+            //Debug.DrawRay(contactPoint, dir * 2f, Color.blue, float.MaxValue);       // surface normal
 
             // apply bounce impulse
             rb.velocity = Vector3.zero;
@@ -320,14 +320,14 @@ public class PlayerController : MonoBehaviour
 
         // reflect using the surface normal
         Vector3 reflectDir = Vector3.Reflect(inDir, surfaceNormal).normalized;
-        Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.black, 3f);
+        //Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.black, 3f);
 
         // SANITY: ensure reflectDir points away from the surface
         // If dot < 0 => reflectDir is pointing into the surface, flip it
         if (Vector3.Dot(reflectDir, surfaceNormal) < 0f)
             reflectDir = -reflectDir;
 
-        Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.magenta, 3f);
+        //Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.magenta, 3f);
 
         // small outward bias so floor bounces go more upward and wall bounces go more outward
         float vertical = Mathf.Abs(surfaceNormal.y);
@@ -347,9 +347,9 @@ public class PlayerController : MonoBehaviour
         }
 
         // debug rays (contact point)
-        Debug.DrawRay(contactPoint, surfaceNormal * 1.5f, Color.red, 3f);
-        Debug.DrawRay(contactPoint, inDir * -2.5f, Color.blue, 3f);
-        Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.green, 3f);
+        //Debug.DrawRay(contactPoint, surfaceNormal * 1.5f, Color.red, 3f);
+        //Debug.DrawRay(contactPoint, inDir * -2.5f, Color.blue, 3f);
+        //Debug.DrawRay(contactPoint, reflectDir * 2.5f, Color.green, 3f);
 
         // apply bounce impulse
         rb.velocity = Vector3.zero;
