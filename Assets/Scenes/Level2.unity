@@ -1104,7 +1104,7 @@ GameObject:
   - component: {fileID: 103065265}
   - component: {fileID: 103065264}
   m_Layer: 0
-  m_Name: StopCam (2)
+  m_Name: StopCam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1118,12 +1118,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 103065262}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.557, y: 0.225, z: -0.0000000034273}
-  m_LocalScale: {x: 0.05, y: 0.5558233, z: 0.51917}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -266.597, y: 25.17883, z: 0.177425}
+  m_LocalScale: {x: -1.6924543, y: 9.507869, z: 25.9585}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1792691088}
+  m_Father: {fileID: 838662801}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &103065264
 MonoBehaviour:
@@ -6768,6 +6768,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 127146623}
+  - {fileID: 103065263}
   - {fileID: 1001899280}
   - {fileID: 1273097664}
   - {fileID: 46146065}
@@ -20211,7 +20212,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 134668885}
-  - {fileID: 103065263}
   m_Father: {fileID: 665998141}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1792691089
