@@ -205,7 +205,20 @@ public class PlayerController : MonoBehaviour
             allowDash = true;
         }
 
-        activeShield = Instantiate(shieldPrefab, transform.position + shieldPrefab.transform.position, Quaternion.identity, transform.GetChild(0));
+        StartCoroutine(SpawnShield());
+    }
+
+    private IEnumerator SpawnShield()
+    {
+        activeShield = Instantiate(
+            shieldPrefab,
+            transform.position + shieldPrefab.transform.position,
+            Quaternion.identity
+        );
+
+        yield return null; // wait 1 frame
+
+        activeShield.transform.SetParent(transform.GetChild(0), true);
     }
 
 
