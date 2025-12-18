@@ -8196,6 +8196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 1028564915}
   lvlTimer: {fileID: 249549011}
+  playerController: {fileID: 58665325}
 --- !u!114 &249549011
 MonoBehaviour:
   m_ObjectHideFlags: 0

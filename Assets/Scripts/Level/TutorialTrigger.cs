@@ -38,7 +38,7 @@ public class TutorialTrigger : MonoBehaviour
 
     private IEnumerator TutorialRoutine()
     {
-        bool continueTut = LockActions();
+        bool continueTut = LockMostActions();
         if (!continueTut)
             yield break;
 
@@ -68,7 +68,7 @@ public class TutorialTrigger : MonoBehaviour
             Destroy(boxMessage);
     }
 
-    private bool LockActions()
+    private bool LockMostActions()
     {
         switch (inputType)
         {

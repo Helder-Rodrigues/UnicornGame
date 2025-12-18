@@ -5,6 +5,7 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject pauseMenu;
     [SerializeField] private LvlTimer lvlTimer;
+    [SerializeField] private PlayerController playerController;
 
     public static bool isPaused = false;
 
@@ -49,6 +50,15 @@ public class PauseMenu : MonoBehaviour
 
     public void HidePauseMenu(bool hide) => pauseMenu.SetActive(!hide);
 
+    public void LockAndFreezePlayer(bool lockAndFreeze)
+    {
+        playerController.allowJump = !lockAndFreeze;
+        playerController.allowDash = !lockAndFreeze;
+        playerController.allowShield = !lockAndFreeze;
+
+        playerController.FreezeMovement(lockAndFreeze);
+    }
+
     public void OnContinueBtn()
     {
         audioManager.PlaySFX(audioManager.clickCardboard);
@@ -66,7 +76,9 @@ public class PauseMenu : MonoBehaviour
     {
         audioManager.PlaySFX(audioManager.clickCardboard);
 
+        LockAndFreezePlayer(true);
         HidePauseMenu(true);
+        Time.timeScale = 1f;
 
         SceneManager.LoadScene("OptionsMenu", LoadSceneMode.Additive);
     }
