@@ -7,6 +7,7 @@ public class DeathTrigger : MonoBehaviour
     [SerializeField] private GameObject deathFxPrefab;
     [SerializeField] private PauseMenu pauseMenu;
     [SerializeField] private CamController camController;
+
     //Audio
     private AudioManager audioManager;
 

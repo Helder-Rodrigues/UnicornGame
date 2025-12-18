@@ -54,4 +54,9 @@ public class CamController : MonoBehaviour
     {
         vCam.Follow = target;
     }
+
+    public Transform GetCamFollowTarget()
+    {
+        return vCam.Follow;
+    }
 }

@@ -13,6 +13,12 @@ public class StopCameraTrigger : MonoBehaviour
             camController.FollowTarget();
     }
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (camController.GetCamFollowTarget() != null && other.CompareTag("Player"))
+            camController.FollowTarget();
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
