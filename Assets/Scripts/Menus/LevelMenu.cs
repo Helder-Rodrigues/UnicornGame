@@ -1,9 +1,14 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class LevelMenu : MonoBehaviour
 {
+    [SerializeField] private Volume globalVolume;
+    private Vignette vignette;
+
     [SerializeField] private TextMeshProUGUI recordLvl1Text;
     [SerializeField] private TextMeshProUGUI recordLvl2Text;
     [SerializeField] private TextMeshProUGUI recordLvl3Text;
@@ -15,6 +20,14 @@ public class LevelMenu : MonoBehaviour
     //Audio
     private AudioManager audioManager;
 
+    private void Awake()
+    {
+        if (globalVolume.profile.TryGet(out vignette) == false)
+        {
+            Debug.LogError("Vignette not found in Volume Profile!");
+        }
+    }
+
     private void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -22,6 +35,22 @@ public class LevelMenu : MonoBehaviour
         UpdateRecord(recordLvl1Sec, recordLvl1Text);
         UpdateRecord(recordLvl2Sec, recordLvl2Text);
         UpdateRecord(recordLvl3Sec, recordLvl3Text);
+    }
+
+    void Update()
+    {
+        if (vignette == null)
+            return;
+
+        // Mouse position in pixels
+        Vector2 mousePos = Input.mousePosition;
+
+        // Normalize
+        float x = Mathf.Clamp01(mousePos.x / Screen.width);
+        float y = Mathf.Clamp01(mousePos.y / Screen.height);
+
+        // Set vignette center
+        vignette.center.value = new Vector2(x, y);
     }
 
     private void UpdateRecord(int seconds, TextMeshProUGUI targetText)
