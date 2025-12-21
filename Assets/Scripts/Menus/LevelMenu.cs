@@ -23,9 +23,7 @@ public class LevelMenu : MonoBehaviour
     private void Awake()
     {
         if (globalVolume.profile.TryGet(out vignette) == false)
-        {
             Debug.LogError("Vignette not found in Volume Profile!");
-        }
     }
 
     private void Start()
