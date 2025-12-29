@@ -30,7 +30,7 @@ public class LvlTimer : MonoBehaviour
     {
         if (toRun == null)
             toRun = !timerRunning;
-        
+
         timerRunning = (bool)toRun;
     }
 
@@ -43,18 +43,21 @@ public class LvlTimer : MonoBehaviour
         {
             if (LevelMenu.recordLvl1Sec > (int)levelTime || LevelMenu.recordLvl1Sec <= 0)
                 LevelMenu.recordLvl1Sec = (int)levelTime;
+            SceneManager.LoadScene("LevelMenu");
         }
         else if (SceneManager.GetActiveScene().name.Contains("2"))
         {
             if (LevelMenu.recordLvl2Sec > (int)levelTime || LevelMenu.recordLvl2Sec <= 0)
                 LevelMenu.recordLvl2Sec = (int)levelTime;
+            SceneManager.LoadScene("LevelMenu");
         }
         else
         {
             if (LevelMenu.recordLvl3Sec > (int)levelTime || LevelMenu.recordLvl3Sec <= 0)
                 LevelMenu.recordLvl3Sec = (int)levelTime;
+            SceneManager.LoadScene("LevelMenu");
+            SceneManager.LoadScene("History", LoadSceneMode.Additive);
         }
 
-        SceneManager.LoadScene("LevelMenu");
     }
 }

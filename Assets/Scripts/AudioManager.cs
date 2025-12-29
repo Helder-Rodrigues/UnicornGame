@@ -12,8 +12,9 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Clips")]
     //Music
+    public AudioClip audienceBeforeShow;
     public AudioClip levelMusic;
-    
+
     //Actions
     public AudioClip bounce;
     public AudioClip dash;
