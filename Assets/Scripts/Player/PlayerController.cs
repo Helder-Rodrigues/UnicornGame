@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float upwardFactor = 0.7f; // how much "up" to add to the wall jump
 
     //Status
+    [SerializeField] private LayerMask groundLayer;
     [HideInInspector] public bool isGrounded = false;
     [HideInInspector] public bool isDashing = false;
     private bool wallJumping = false;
@@ -118,12 +119,13 @@ public class PlayerController : MonoBehaviour
     private void VerifyGround()
     {
         Vector3 extents = boxCol.size * 0.75f;
-        extents = new(extents.x, extents.y / 2.85f, extents.z);
+        extents = new(extents.x * 1.35f, extents.y / 2.85f, extents.z);
         Vector3 center = transform.position;
-        center.y += boxCol.size.y / 4;
+        center.x += boxCol.size.x / 16;
+        center.y += boxCol.size.y / 2.5f;
         float distance = 1f;
 
-        isGrounded = Physics.BoxCast(center, extents, Vector3.down, out _, transform.rotation, distance);
+        isGrounded = Physics.BoxCast(center, extents, Vector3.down, out _, transform.rotation, distance, groundLayer);
         //DebugBoxCast.DrawBoxCastOnHit(center, extents, transform.rotation, Vector3.down, distance, Color.red);
     }
 

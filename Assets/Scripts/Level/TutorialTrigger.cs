@@ -54,6 +54,9 @@ public class TutorialTrigger : MonoBehaviour
                 message.text = tutText;
         }
 
+        float tempMaxTitl = PlayerRotationController.maxTilt;
+        PlayerRotationController.maxTilt = 0;
+        
         bool inputReceived = false;
         void OnInput() => inputReceived = true;
 
@@ -63,6 +66,8 @@ public class TutorialTrigger : MonoBehaviour
         yield return new WaitUntil(() => inputReceived);
 
         Unsubscribe(OnInput);
+
+        PlayerRotationController.maxTilt = tempMaxTitl;
 
         if (tutBoxMessage != null)
             Destroy(boxMessage);

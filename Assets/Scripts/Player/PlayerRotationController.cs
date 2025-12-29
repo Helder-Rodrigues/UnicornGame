@@ -7,7 +7,7 @@ public class PlayerRotationController : MonoBehaviour
     public Transform model;          // drag your visual model here
     public Rigidbody rb;             // drag the player's Rigidbody
     public float rotateSpeed = 5f;   // smoothing speed
-    public float maxTilt = 45f;      // max rotation angle while moving in air
+    public static float maxTilt = 90f;      // max rotation angle while moving in air
     public PlayerController playerCtrl; // script that contains isGrounded
 
     void Update()
