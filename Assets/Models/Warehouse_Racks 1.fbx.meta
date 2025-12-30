@@ -3,7 +3,13 @@ guid: fe1e3873c012d204faa17254ea162b9a
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Castanho_armazem
+    second: {fileID: -8067116701821864547, guid: 36f3d27ad45feef44ad83db40d891a51,
+      type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
