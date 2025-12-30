@@ -15,7 +15,6 @@ public class TutorialTrigger : MonoBehaviour
     [SerializeField] private Canvas canvas;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private OneBtnInput inputController;
-    //[SerializeField] private LvlTimer lvlTimer;
 
     [Header("Tutorial Settings")]
     [SerializeField] private TutorialInputType inputType;

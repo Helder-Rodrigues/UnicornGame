@@ -23192,7 +23192,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccb31cd00eb15f546b0057f17ffc873c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flipTransDuration: 0.8
+  flipTransDuration: 1.5
 --- !u!114 &1558172363
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24401,6 +24401,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicSource: {fileID: 2142003977}
   sfxSource: {fileID: 194178465}
+  audienceBeforeShow: {fileID: 8300000, guid: ac75097d1847b7449bbb9b0189b4c68f, type: 3}
   levelMusic: {fileID: 8300000, guid: 6dc61ed1afe7ecc49bd659debc770636, type: 3}
   bounce: {fileID: 8300000, guid: fc7c70884a6c0ac419199413358738ba, type: 3}
   dash: {fileID: 8300000, guid: 6dc8276df0ee1584da9d31b18ea9bd24, type: 3}
@@ -28518,7 +28519,6 @@ MonoBehaviour:
   model: {fileID: 2080979293}
   rb: {fileID: 1427699645}
   rotateSpeed: 5
-  maxTilt: 90
   playerCtrl: {fileID: 1427699644}
 --- !u!1 &2087265254 stripped
 GameObject:

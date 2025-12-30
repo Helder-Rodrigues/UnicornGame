@@ -37,9 +37,24 @@ public class DeathTrigger : MonoBehaviour
         //while (ps.IsAlive(true))
         //    yield return null; // wait until the particle system is done
 
-        yield return new WaitForSeconds(3f);
+        yield return StartCoroutine(WaitForInputOrTime(OneBtnInput.actionKey, 3f));
 
         //Reload Level
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private IEnumerator WaitForInputOrTime(KeyCode actionKey, float maxWaitTime)
+    {
+        bool inputReceived = false;
+        float timer = 0f;
+
+        while (!inputReceived && timer < maxWaitTime)
+        {
+            if (Input.GetKeyDown(actionKey))
+                inputReceived = true;
+
+            timer += Time.deltaTime;
+            yield return null; // wait next frame
+        }
     }
 }
