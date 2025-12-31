@@ -23,7 +23,7 @@ public class CameraSwitcher : MonoBehaviour
 
     private void Update()
     {
-        if (!switched && Input.GetKeyDown(OneBtnInput.actionKey))
+        if (!switched && Input.anyKeyDown)
         {
             StartCoroutine(SwitchAndUnpause());
         }
