@@ -1832,6 +1832,26 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.143424
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.04797294
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Center.x
+      value: 0.041728873
+      objectReference: {fileID: 0}
+    - target: {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Center.y
+      value: -0
+      objectReference: {fileID: 0}
     - target: {fileID: 5734660351412127326, guid: a829a45826aa95e4aaabfeec5803b60d,
         type: 3}
       propertyPath: m_Name
@@ -1849,7 +1869,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7901325060499510201, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
-    - {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -2478,8 +2497,8 @@ Transform:
   - {fileID: 1870391852}
   - {fileID: 109876610}
   - {fileID: 802554025}
-  - {fileID: 1629127012}
   - {fileID: 1111069500}
+  - {fileID: 1629127012}
   - {fileID: 180588710}
   - {fileID: 2071299873}
   - {fileID: 2128345613}
@@ -21861,7 +21880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1371377879}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Rocha
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28353,8 +28372,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7901325060499510201, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.10309596
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901325060499510201, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 0.04797294
+      objectReference: {fileID: 0}
+    - target: {fileID: 7901325060499510201, guid: a829a45826aa95e4aaabfeec5803b60d,
+        type: 3}
+      propertyPath: m_Center.x
+      value: -0.021564892
+      objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: 7901325060499510201, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
     - {fileID: 5323107451369608442, guid: a829a45826aa95e4aaabfeec5803b60d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
