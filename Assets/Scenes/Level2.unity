@@ -1958,8 +1958,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
-  pauseMenu: {fileID: 0}
-  camController: {fileID: 0}
+  pauseMenu: {fileID: 577992285}
+  camController: {fileID: 1446302366}
 --- !u!65 &199845794
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6372,7 +6372,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b616d5ed0ae3e4ebd4c341f6be286f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camController: {fileID: 0}
+  camController: {fileID: 1446302366}
   unicornTrans: {fileID: 0}
 --- !u!65 &745871835
 BoxCollider:
@@ -6698,8 +6698,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
-  pauseMenu: {fileID: 0}
-  camController: {fileID: 0}
+  pauseMenu: {fileID: 577992285}
+  camController: {fileID: 1446302366}
 --- !u!65 &819006656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7707,7 +7707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b616d5ed0ae3e4ebd4c341f6be286f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camController: {fileID: 0}
+  camController: {fileID: 1446302366}
   unicornTrans: {fileID: 0}
 --- !u!65 &879655081
 BoxCollider:
@@ -16124,8 +16124,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b616d5ed0ae3e4ebd4c341f6be286f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camController: {fileID: 0}
-  unicornTrans: {fileID: 0}
+  camController: {fileID: 1446302366}
+  unicornTrans: {fileID: 854357203}
 --- !u!65 &1203738972
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -23270,8 +23270,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deathFxPrefab: {fileID: 3144333125148161845, guid: bfa829de97330dd4580ad4a372ec562c,
     type: 3}
-  pauseMenu: {fileID: 0}
-  camController: {fileID: 0}
+  pauseMenu: {fileID: 577992285}
+  camController: {fileID: 1446302366}
 --- !u!65 &1962615854
 BoxCollider:
   m_ObjectHideFlags: 0
