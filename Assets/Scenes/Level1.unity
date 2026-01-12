@@ -371,6 +371,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 47596193}
+  - component: {fileID: 47596194}
   m_Layer: 5
   m_Name: Options
   m_TagString: Untagged
@@ -399,6 +400,27 @@ RectTransform:
   m_AnchoredPosition: {x: -88.2, y: 41.909637}
   m_SizeDelta: {x: -795.6391, y: -12.294128}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &47596194
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47596192}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2d1833b141e754542a7031e3f00fd912, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &48581956
 GameObject:
   m_ObjectHideFlags: 0
@@ -1112,6 +1134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 126539780}
+  - component: {fileID: 126539781}
   m_Layer: 5
   m_Name: Exit
   m_TagString: Untagged
@@ -1140,6 +1163,27 @@ RectTransform:
   m_AnchoredPosition: {x: 23, y: 47}
   m_SizeDelta: {x: -795.6391, y: -22.474854}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &126539781
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126539779}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 70e624a3c76017c439f120e531dc919a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &133917063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2804,6 +2848,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 294501654}
+  - component: {fileID: 294501655}
   m_Layer: 5
   m_Name: Continuue
   m_TagString: Untagged
@@ -2832,6 +2877,27 @@ RectTransform:
   m_AnchoredPosition: {x: -48, y: 115.148254}
   m_SizeDelta: {x: -795.6391, y: 5.228668}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!95 &294501655
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 294501653}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ef3cfa9e632db1c489004b5b8c92d97b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &321000938
 GameObject:
   m_ObjectHideFlags: 0
