@@ -1336,8 +1336,8 @@ MonoBehaviour:
   bounce: {fileID: 8300000, guid: fc7c70884a6c0ac419199413358738ba, type: 3}
   dash: {fileID: 8300000, guid: 6dc8276df0ee1584da9d31b18ea9bd24, type: 3}
   jump: {fileID: 8300000, guid: f8d5e41d9a526ee45a88aa4af8b9ae87, type: 3}
-  applause: {fileID: 8300000, guid: 85a423b5f96e9c34b9e2925938d47d75, type: 3}
-  crowdBooing: {fileID: 8300000, guid: 43a83b093d6813f4b982fbad906d5e1b, type: 3}
+  applause: {fileID: 8300000, guid: 1ce32ed51a360e842adb8edb02cf8202, type: 3}
+  crowdBooing: {fileID: 8300000, guid: cd15e6f11bcb55442b086740ff29466f, type: 3}
   clickCardboard: {fileID: 8300000, guid: 5a7b7219b39e3fa40825a890aeda24dc, type: 3}
   snortingHorse: {fileID: 8300000, guid: 844be53e38c49e849926fd058b105a38, type: 3}
   snortingHorseDying: {fileID: 8300000, guid: 6cd5c015ddcabf946ab8465274234d4f, type: 3}
