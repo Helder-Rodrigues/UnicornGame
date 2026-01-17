@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private OneBtnInput input;
     [SerializeField] private GameObject shieldPrefab;
     [SerializeField] private CamController camController;
+    [SerializeField] private GameObject cloudVfx;
 
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
@@ -42,6 +43,8 @@ public class PlayerController : MonoBehaviour
     [Header("Another References")]
     [SerializeField] private Rigidbody rb;
     [HideInInspector] public GameObject activeShield;
+    [HideInInspector] private GameObject lastCloud = null;
+
     private BoxCollider boxCol;
 
     //Info
@@ -74,6 +77,21 @@ public class PlayerController : MonoBehaviour
         if (isJumping)
         {
             isJumping = false;
+            
+            if (lastCloud != null)
+            {
+                Destroy(lastCloud);
+                lastCloud = null;
+            }
+            lastCloud = Instantiate(cloudVfx, transform.position, cloudVfx.transform.rotation);
+            if (moveSpeed < 0)
+            {
+                Vector3 newScale = lastCloud.transform.localScale;
+                newScale.x *= -1f;
+                newScale.y *= -1f;
+                lastCloud.transform.localScale = newScale;
+            }
+
             rb.velocity = new Vector3(rb.velocity.x, 0, 0); // reset vertical speed
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }

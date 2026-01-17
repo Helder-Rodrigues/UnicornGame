@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private PlayerController playerController;
 
     public static bool isPaused = false;
+    private float defaultMaxTitl;
 
     //Audio
     private AudioManager audioManager;
@@ -15,7 +16,9 @@ public class PauseMenu : MonoBehaviour
     private void Start()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
-    
+
+        defaultMaxTitl = PlayerRotationController.maxTilt;
+
         TogglePauseMenu(false);
     }
 
@@ -43,7 +46,9 @@ public class PauseMenu : MonoBehaviour
             toPause = !isPaused;
         isPaused = (bool)toPause;
 
-        Time.timeScale = isPaused ? 0f : 1f;
+        LockAndFreezePlayer(isPaused);
+
+        PlayerRotationController.maxTilt = isPaused ? 0 : defaultMaxTitl;
 
         lvlTimer.ToggleTimer(!isPaused);
     }
@@ -71,7 +76,7 @@ public class PauseMenu : MonoBehaviour
         TogglePauseMenu();
         SceneManager.LoadScene("LevelMenu");
     }
-    
+
     public void OnOptionsBtn()
     {
         audioManager.PlaySFX(audioManager.clickCardboard);

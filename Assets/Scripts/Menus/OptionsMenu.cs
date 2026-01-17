@@ -89,7 +89,6 @@ public class OptionsMenu : MonoBehaviour
         foreach (AudioSource source in filteredSources)
             source.enabled = true;
 
-        Time.timeScale = 0f;
         pauseMenu.HidePauseMenu(false);
         pauseMenu.LockAndFreezePlayer(false);
 

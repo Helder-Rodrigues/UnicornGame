@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Press the button pressed in the Title Screen to Jump!
+  m_text: Press the chosen button!
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5f4ca51d27a323a4d938a6560a260b62, type: 2}
   m_sharedMaterial: {fileID: -462457508140977345, guid: 5f4ca51d27a323a4d938a6560a260b62,
@@ -163,7 +163,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.018107992, y: 0.018107992, z: 0.018107992}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 6035426009417544110}
   m_Father: {fileID: 0}
